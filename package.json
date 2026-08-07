@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npx tsc && npx vite build",
+    "build": "tsc && vite build",
+    "postinstall": "chmod +x node_modules/.bin/* 2>/dev/null || true",
     "preview": "vite preview"
   },
   "dependencies": {
