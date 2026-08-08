@@ -119,14 +119,21 @@ export const Results: React.FC<ResultsProps> = ({ calculation }) => {
             <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50">
               <div>
                 <span className="text-sm font-medium text-slate-600 block">Addizionale Regionale</span>
-                <span className="text-xs text-slate-400">Regione Lombardia ({formatPercent(regionalTaxRate)})</span>
+                <span className="text-xs text-slate-400">Regione Lombardia (Progressiva, eff. {formatPercent(regionalTaxRate, 2)})</span>
               </div>
               <span className="text-base font-bold text-slate-900">{formatCurrency(regionalTax)}</span>
             </div>
 
             <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50">
               <div>
-                <span className="text-sm font-medium text-slate-600 block">Addizionale Comunale</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-medium text-slate-600">Addizionale Comunale</span>
+                  {taxableIncome > 0 && taxableIncome <= 23000 && (
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100/90 border border-emerald-200 px-1.5 py-0.5 rounded-md">
+                      Esente (Imponibile ≤ 23.000 €)
+                    </span>
+                  )}
+                </div>
                 <span className="text-xs text-slate-400">Comune di Milano ({formatPercent(municipalTaxRate)})</span>
               </div>
               <span className="text-base font-bold text-slate-900">{formatCurrency(municipalTax)}</span>
@@ -153,6 +160,32 @@ export const Results: React.FC<ResultsProps> = ({ calculation }) => {
                 <div className="font-bold text-slate-800 flex justify-between">
                   <span>{bracket.bracketLabel}</span>
                   <span className="text-purple-600 font-extrabold">{formatPercent(bracket.rate, 0)}</span>
+                </div>
+                <div className="text-slate-500">
+                  Imponibile quota: <span className="font-medium text-slate-700">{formatCurrency(bracket.taxableAmountInBracket)}</span>
+                </div>
+                <div className="text-slate-900 font-bold pt-1 border-t border-slate-200/60 mt-1">
+                  Imposta: {formatCurrency(bracket.taxAmount)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Regional IRPEF Brackets Detail Card */}
+      {calculation.regionalBrackets && calculation.regionalBrackets.length > 0 && (
+        <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-jet">
+          <h4 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <Landmark className="w-4 h-4 text-indigo-600" />
+            Dettaglio Scaglioni Addizionale Regionale Lombardia (2026)
+          </h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {calculation.regionalBrackets.map((bracket, idx) => (
+              <div key={idx} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/60 text-xs space-y-1">
+                <div className="font-bold text-slate-800 flex justify-between">
+                  <span>{bracket.bracketLabel}</span>
+                  <span className="text-indigo-600 font-extrabold">{formatPercent(bracket.rate, 2)}</span>
                 </div>
                 <div className="text-slate-500">
                   Imponibile quota: <span className="font-medium text-slate-700">{formatCurrency(bracket.taxableAmountInBracket)}</span>

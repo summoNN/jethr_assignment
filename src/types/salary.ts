@@ -16,6 +16,7 @@ export interface SalaryCalculation {
   irpefBrackets: IrpefBracketDetail[];
   regionalTax: number;
   regionalTaxRate: number;
+  regionalBrackets?: IrpefBracketDetail[];
   municipalTax: number;
   municipalTaxRate: number;
   totalTaxes: number;
@@ -37,4 +38,5 @@ export interface TaxAssumptions {
   inpsRate: number;
   regionalRate: number;
   municipalRate: number;
+  municipalExemptionThreshold: number;
 }

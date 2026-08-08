@@ -13,7 +13,7 @@ A modern, fast, and responsive web application built with **React**, **TypeScrip
 - **📊 Interactive Visual Breakdown**:
   - **Stacked Distribution Bar**: Visual representation of Net Salary vs. IRPEF & Taxes vs. INPS Contributions.
   - **Waterfall Flowchart**: 4-step breakdown tracing the journey from Gross RAL to final Net income.
-- **🇮🇹 Italian IRPEF Brackets**: Accurate progressive tax bracket calculation (23%, 35%, 43%) alongside local regional and municipal tax additions.
+- **🇮🇹 Italian IRPEF Brackets**: Accurate progressive tax bracket calculation (23%, 33%, 43%) alongside local regional and municipal tax additions.
 - **🎨 Modern UI & UX**:
   - Soft cards, clean shadows, and typography inspired by Jet HR and Linear.
   - Quick sample presets (€25k, €35k, €45k, €60k) for instant testing.
@@ -36,12 +36,16 @@ All tax operations reside in `src/utils/tax.ts` as pure functions:
    $$\text{Taxable Income} = \text{RAL} - \text{INPS}$$
 3. **National IRPEF (`calculateIrpef`)** applied progressively:
    - **Up to €28,000**: 23%
-   - **€28,000.01 to €50,000**: 35%
+   - **€28,000.01 to €50,000**: 33%
    - **Over €50,000**: 43%
-4. **Regional Tax (`calculateRegionalTax`)**:
-   $$\text{Regional Tax} = \text{Taxable Income} \times 1.23\% \quad \text{(Lombardia baseline)}$$
-5. **Municipal Tax (`calculateMunicipalTax`)**:
-   $$\text{Municipal Tax} = \text{Taxable Income} \times 0.80\% \quad \text{(Milan baseline)}$$
+4. **Regional Tax (`calculateRegionalTax`)** applied progressively ([Source: Regione Lombardia](https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/red-addizionale-regionale-irpef)):
+   - **Up to €15,000**: 1.23%
+   - **€15,000.01 to €28,000**: 1.58%
+   - **€28,000.01 to €50,000**: 1.72%
+   - **Over €50,000**: 1.73%
+5. **Municipal Tax (`calculateMunicipalTax`)** ([Source: Comune di Milano](https://www.comune.milano.it/argomenti/tributi/addizionale-comunale-irpef)):
+   - **Taxable Income $\le$ €23,000**: Exempt (€0)
+   - **Taxable Income > €23,000**: $$\text{Municipal Tax} = \text{Taxable Income} \times 0.80\% \quad \text{(Milan baseline)}$$
 6. **Net Salary (`calculateNetSalary`)**:
    $$\text{Net Annual} = \text{Taxable Income} - (\text{IRPEF} + \text{Regional Tax} + \text{Municipal Tax})$$
    $$\text{Net Monthly} = \frac{\text{Net Annual}}{13}$$
@@ -122,6 +126,13 @@ Unless specified otherwise, the default parameters applied in this prototype ass
 - **Dependents**: None (0)
 - **Tax Deductions / Special Exemptions**: None
 - **Installments**: 13 Monthly Payments
+
+---
+
+## 🔗 Official Tax Sources & References
+
+- **Addizionale Comunale IRPEF (Comune di Milano)**: [Comune di Milano - Addizionale Comunale IRPEF Official Page](https://www.comune.milano.it/argomenti/tributi/addizionale-comunale-irpef)
+- **Addizionale Regionale IRPEF (Regione Lombardia)**: [Regione Lombardia - Addizionale Regionale IRPEF Official Page](https://www.regione.lombardia.it/bollo-auto-e-tributi-regionali/red-addizionale-regionale-irpef)
 
 ---
 

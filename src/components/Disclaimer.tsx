@@ -64,7 +64,7 @@ export const Disclaimer: React.FC = () => {
                 <strong className="text-slate-900">Calcolo dell'IRPEF Lorda:</strong> Si applicano gli scaglioni IRPEF progressivi (23% fino a 28k, 35% fino a 50k, 43% oltre 50k) sul Reddito Imponibile.
               </li>
               <li className="p-3 bg-slate-50 rounded-xl">
-                <strong className="text-slate-900">Calcolo Addizionali Locali:</strong> Si applica l'addizionale regionale (1.23% in Lombardia) e l'addizionale comunale (0.80% a Milano) sull'imponibile IRPEF.
+                <strong className="text-slate-900">Calcolo Addizionali Locali:</strong> Si applica l'addizionale regionale progressiva per scaglioni (da 1.23% fino a 1.73% in Lombardia) e l'addizionale comunale (0.80% a Milano, con esenzione totale per imponibile fino a 23.000 €) sull'imponibile IRPEF.
               </li>
               <li className="p-3 bg-slate-50 rounded-xl">
                 <strong className="text-slate-900">Ottenimento del Netto:</strong> Si sottraggono IRPEF e Addizionali dall'imponibile per trovare il netto annuo, e si divide per 13 mensilità per ottenere il netto mensile.

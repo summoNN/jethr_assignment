@@ -181,12 +181,12 @@ export const TaxBreakdown: React.FC<TaxBreakdownProps> = ({ calculation }) => {
                 </div>
               </div>
             </div>
-            <div className="text-right">
-              <div className="text-base font-bold text-amber-700">- {formatCurrency(totalTaxes)}</div>
-              <div className="text-xs text-amber-600 font-medium">
-                Reg: {formatCurrency(regionalTax)} | Com: {formatCurrency(municipalTax)}
+              <div className="text-right">
+                <div className="text-base font-bold text-amber-700">- {formatCurrency(totalTaxes)}</div>
+                <div className="text-xs text-amber-600 font-medium">
+                  Reg: {formatCurrency(regionalTax)} | Com: {municipalTax > 0 ? formatCurrency(municipalTax) : 'Esente'}
+                </div>
               </div>
-            </div>
           </div>
 
           {/* Arrow */}
